@@ -8,15 +8,19 @@ import ddf.minim.ugens.*;
 //importeer audiosample
 
 Serial port;        // Create object from Serial class             //HIER ZOU PORT EN PORT 1 GEINITIALISEERD MOET WORDEN?
-                    // Data received from the serial port          //HIER ZOU IN FLOAT'S OF INT'S VAL EN VAL1 ONTVANGEN MOETEN WORDEN?
+// Data received from the serial port          //HIER ZOU IN FLOAT'S OF INT'S VAL EN VAL1 ONTVANGEN MOETEN WORDEN?
 int buffer = 0;
 float volume = 0.0;
+float maxGain = 3;
+float minGain = -40;
+//max volume zetten!
 int BPM = 0;
 float maxBPM = 180;
 float audioSampleBPM = 100;
 
 Minim minim;
 TickRate rateControl;
+Gain volumeControl;
 FilePlayer muziekje;
 AudioOutput out;
 
@@ -40,8 +44,11 @@ void setup() {
   muziekje.loop();
   rateControl = new TickRate(1.f);
   rateControl.setInterpolation( true );
+  volumeControl = new Gain(0.f);
   out = minim.getLineOut();
-  muziekje.patch(rateControl).patch(out);
+  muziekje.patch(rateControl);
+  muziekje.patch(volumeControl).patch(out);
+  
 }
 
 // READ
@@ -57,14 +64,14 @@ boolean updateInput() {  //is there new data availbale from Arduin? Yes or no.
 }
 
 void interpretInput(float potmeter, float potmeter1) {  //creating function for interpret new input from potmeters
-  volume = map(potmeter, 0, 255, 100, 0);               //translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
+  volume = map(potmeter, 0, 255, maxGain, minGain);               //translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
   BPM = int(map(potmeter1, 0, 255, maxBPM, 0));             //translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
-  println("volume:", volume, "%; BPM:", BPM);
+  println("volume :", volume , "dB; BPM:", BPM);
 }
 
 void sampleSetting(float volume, float BPM) {  //creating function for adjusting volume and BPM.  
   rateControl.value.setLastValue(BPM/audioSampleBPM);
-  
+  volumeControl.setValue(volume);  
   //muziekje.setVolume(volume);
   //amp() en rate(); komen hier.
   //muziekje.amp(0.5);
@@ -72,7 +79,7 @@ void sampleSetting(float volume, float BPM) {  //creating function for adjusting
 }
 
 void drawVisualisation () {    //function for  visualisationSetting
-  float volumeHeight = map(volume, 0, 100, 450, 50);  // Convert the value
+  float volumeHeight = map(volume, minGain, maxGain, 450, 50);  // Convert the value
   float BPMHeight = map(BPM, 0, maxBPM, 450, 50); //
   ellipse(100, volumeHeight, 101, 101);   // draw visualisations
   rect(250, BPMHeight, 101, 101);
