@@ -1,7 +1,9 @@
 import processing.serial.*;
-import processing.sound.*;
+import ddf.minim.*;
+import ddf.minim.ugens.*;
 
-SoundFile muziekje;
+//Minim minim;
+//AudioPlayer muziekje;
 
 //importeer audiosample
 
@@ -12,8 +14,15 @@ float volume = 0.0;
 float BPM = 0.0;
 float maxBPM = 180;
 
+Minim minim;
+TickRate rateControl;
+FilePlayer muziekje;
+AudioOutput out;
+
 
 void setup() {
+
+ 
 
   printArray(Serial.list());
   rectMode(CENTER);
@@ -22,9 +31,10 @@ void setup() {
   String arduinoPort = Serial.list()[2];
   //String arduinoPort = Serial.list()[1];                                         
   port = new Serial(this, arduinoPort, 9600);
-  muziekje = new SoundFile(this, "Nescafe.mp3");
+  minim = new Minim(this);
+  //muziekje = minim.loadFile("Nescafe.mp3");
   //muziekje.amp(0.5);
-  muziekje.loop(); //using loop instead of play
+  //muziekje.loop(); //using loop instead of play
 }
 
 // READ
@@ -46,6 +56,8 @@ void interpretInput(float potmeter, float potmeter1) {  //creating function for 
 }
 
 void sampleSetting(float volume, float BPM) {  //creating function for adjusting volume and BPM.  
+  rateControl.value.setLastValue(BPM);
+  //muziekje.setVolume(volume);
   //amp() en rate(); komen hier.
   //muziekje.amp(0.5);
   //muziekje.rate(0.5);
