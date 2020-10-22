@@ -27,7 +27,7 @@ void setup() {
   String arduinoPort = Serial.list()[2];                                         // Receive the buffer from arduino 
   port = new Serial(this, arduinoPort, 9600);                                    // Via port > arduinoPort with baudrate 9600
   minim = new Minim(this);                                                       // ?
-  muziekje = new FilePlayer( minim.loadFileStream("Raffa FL - How We Do.mp3") ); // Import the choosen .mp3 file to use in the code
+  muziekje = new FilePlayer( minim.loadFileStream("Regal - Anhedonia.mp3") ); // Import the choosen .mp3 file to use in the code
   muziekje.loop();                                                               // Function to start en loop the .mp3 file
   rateControl = new TickRate(1.f);                                               // ?
   rateControl.setInterpolation( true );                                          // ?
