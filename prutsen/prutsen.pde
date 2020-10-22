@@ -2,19 +2,13 @@ import processing.serial.*;
 import ddf.minim.*;
 import ddf.minim.ugens.*;
 
-//Minim minim;
-//AudioPlayer muziekje;
 
-//importeer audiosample
-
-Serial port;        // Create object from Serial class             //HIER ZOU PORT EN PORT 1 GEINITIALISEERD MOET WORDEN?
-// Data received from the serial port          //HIER ZOU IN FLOAT'S OF INT'S VAL EN VAL1 ONTVANGEN MOETEN WORDEN?
-int buffer = 0;
-float volume = 0.0;
-float maxGain = 3;
-float minGain = -40;
-//max volume zetten!
-int BPM = 0;
+Serial port;                                                                     // Data received from the serial port      
+int buffer = 0;                                                                  // Load the buffer 
+float volume = 0.0;                                                              // Creating volume var 0.0 as starting point
+float maxGain = 10;                                                              // Setting a Maximum on volume
+float minGain = -100;                                                            // Setting a Minimum on volume
+int BPM = 0;                                                                     // Creating BPM var 0 as starting point
 float maxBPM = 180;
 float audioSampleBPM = 100;
 
@@ -40,13 +34,13 @@ void setup() {
   //muziekje = minim.loadFile("Nescafe.mp3");
   //muziekje.amp(0.5);
   //muziekje.loop(); //using loop instead of play
-  muziekje = new FilePlayer( minim.loadFileStream("Nescafe.mp3") );
+  muziekje = new FilePlayer( minim.loadFileStream("Regal - Anhedonia.mp3") );
   muziekje.loop();
   rateControl = new TickRate(1.f);
   rateControl.setInterpolation( true );
   volumeControl = new Gain(0.f);
   out = minim.getLineOut();
-  muziekje.patch(rateControl);
+  muziekje.patch(rateControl).patch(out);
   muziekje.patch(volumeControl).patch(out);
   
 }
