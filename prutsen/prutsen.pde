@@ -33,8 +33,7 @@ void setup() {
   rateControl.setInterpolation( true );                                          // ?
   volumeControl = new Gain(0.f);                                                 //
   out = minim.getLineOut();                                                      //
-  muziekje.patch(rateControl).patch(out);                                        //  
-  muziekje.patch(volumeControl).patch(out);                                      //
+  muziekje.patch(rateControl).patch(volumeControl).patch(out);                                     //
  }
 
 boolean updateInput() {                                                          // Checking if there is new data availbale from the Arduino
