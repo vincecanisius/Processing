@@ -34,7 +34,7 @@ void setup() {
   volumeControl = new Gain(0.f);                                                 //
   out = minim.getLineOut();                                                      //
   muziekje.patch(rateControl).patch(volumeControl).patch(out);                                     //
- }
+}
 
 boolean updateInput() {                                                          // Checking if there is new data availbale from the Arduino
   if (port.available() > 0) {                                                    // If data is available,  
@@ -50,7 +50,7 @@ boolean updateInput() {                                                         
 void interpretInput(float potmeter, float potmeter1) {                           // Creating function for interpret new input from potmeters
   volume = map(potmeter, 0, 255, maxGain, minGain);                              // Translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
   BPM = int(map(potmeter1, 0, 255, maxBPM, 0));                                  // Translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
-  println("volume :", volume , "dB; BPM:", BPM);                                 // Print Volume dB and BPM in combination with the values
+  println("volume :", volume, "dB; BPM:", BPM);                                 // Print Volume dB and BPM in combination with the values
 }
 
 void sampleSetting(float volume, float BPM) {                                    // Creating function for adjusting volume and BPM.  
@@ -66,10 +66,48 @@ void drawVisualisation () {                                                     
 }
 
 void draw() {
-    background(0);
+  background(0);
 
   if (updateInput()) {                                                           // If there is new data available adjust the sampleSetting or visualisationSetting
     sampleSetting(volume, BPM);                                                  // Function for the sampleSetting
   }
   drawVisualisation();                                                           // Draw the visualisation
+
+  fill(255, 0, 0);
+  rect(0, 0, 100, 100); 
+  fill(227, 0, 0);
+  rect(0, 100, 100, 100);
+  fill(199, 0, 0);
+  rect(0, 200, 100, 100);
+  fill(171, 0, 0);
+  rect(0, 300, 100, 100);
+  fill(143, 0, 0);
+  rect(0, 400, 100, 100);
+  fill(115, 0, 0);
+  rect(0, 500, 100, 100);
+  fill(87, 0, 0);
+  rect(0, 600, 100, 100);
+  fill(59, 0, 0);
+  rect(0, 700, 100, 100);
+  fill(31, 0, 0);
+  rect(0, 800, 100, 100);
+
+  fill(0, 0, 255);
+  rect(100, 0, 100, 100);
+  fill(0, 0, 277);
+  rect(100, 100, 100, 100);
+  fill(0, 0, 199);
+  rect(100, 200, 100, 100);
+  fill(0, 0, 171);
+  rect(100, 300, 100, 100);
+  fill(0, 0, 143);
+  rect(100, 400, 100, 100);
+  fill(0, 0, 115);
+  rect(100, 500, 100, 100);
+  fill(0, 0, 87);
+  rect(100, 600, 100, 100);
+  fill(0, 0, 59);
+  rect(100, 700, 100, 100);
+  fill(0, 0, 31);
+  rect(100, 800, 100, 100);
 }
