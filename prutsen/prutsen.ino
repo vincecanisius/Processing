@@ -6,7 +6,7 @@ import ddf.minim.ugens.*;
 Serial port;                                                                     // Data received from the serial port      
 int buffer = 0;                                                                  // Load the buffer 
 float volume = 0.0;                                                              // Creating volume var 0.0 as starting point
-float maxGain = 2;                                                               // Setting a Maximum on volume
+float maxGain = 2;                                                              // Setting a Maximum on volume
 float minGain = -100;                                                            // Setting a Minimum on volume
 int BPM = 0;                                                                     // Creating BPM var 0 as starting point
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
@@ -25,7 +25,7 @@ void setup() {
   String arduinoPort = Serial.list()[2];                                         // Receive the buffer from arduino 
   port = new Serial(this, arduinoPort, 9600);                                    // Via port > arduinoPort with baudrate 9600
   minim = new Minim(this);                                                       // ?
-  muziekje = new FilePlayer( minim.loadFileStream("Regal - Anhedonia.mp3") );    // Import the choosen .mp3 file to use in the code
+  muziekje = new FilePlayer( minim.loadFileStream("Regal - Anhedonia.mp3") ); // Import the choosen .mp3 file to use in the code
   muziekje.loop();                                                               // Function to start en loop the .mp3 file
   rateControl = new TickRate(1.f);                                               // ?
   rateControl.setInterpolation( true );                                          // ?
@@ -46,10 +46,9 @@ boolean updateInput() {                                                         
 }
 
 void interpretInput(float potmeter, float potmeter1) {                           // Creating function for interpret new input from potmeters
-  println(potmeter, potmeter1);
   volume = map(potmeter, 0, 255, maxGain, minGain);                              // Translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
   BPM = int(map(potmeter1, 0, 255, maxBPM, 0));                                  // Translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
-  println("volume :", volume, "dB; BPM:", BPM);                                  // Print Volume dB and BPM in combination with the values
+  println("volume :", volume, "dB; BPM:", BPM);                                 // Print Volume dB and BPM in combination with the values
 }
 
 void sampleSetting(float volume, float BPM) {                                    // Creating function for adjusting volume and BPM.  
@@ -64,7 +63,7 @@ void drawVisualisation () {                                                     
   rect(250, BPMHeight, 101, 101);                                                // Draw rectangle and adjus it vertically by BPMHeight
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column             
-    if (map(i, 0, 8, maxGain, minGain) <= volume) {                              // Creating if statement tot connect volume function to the left column
+    if (map(i, 0, 8, maxGain, minGain) <= volume) {                               // Creating if statement tot connect volume function to the left column
       fill(255 - 28 * i, 0, 0);
     } else {
       fill(0);
@@ -73,8 +72,8 @@ void drawVisualisation () {                                                     
   }
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the right LED blue column
-    if (map(i, 0, 8, maxBPM, 0) <= BPM) {                                        // Creating if statement tot connect BPM function to the right column
-      fill(0, 0, 255 - 28 * i);
+      if (map(i, 0, 8, maxBPM, 0) <= BPM){                                        // Creating if statement tot connect BPM function to the right column
+        fill(0, 0, 255 - 28 * i);
     } else {
       fill(0);
     }       
