@@ -46,7 +46,6 @@ boolean updateInput() {                                                         
 }
 
 void interpretInput(float potmeter, float potmeter1) {                           // Creating function for interpret new input from potmeters
-  println(potmeter, potmeter1);
   volume = map(potmeter, 0, 255, maxGain, minGain);                              // Translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
   BPM = int(map(potmeter1, 0, 255, maxBPM, 0));                                  // Translating orginal values of 0,255 to 0,100 in the way of 0% - 100%.
   println("volume :", volume, "dB; BPM:", BPM);                                  // Print Volume dB and BPM in combination with the values
@@ -63,8 +62,8 @@ void drawVisualisation () {                                                     
   ellipse(100, volumeHeight, 101, 101);                                          // Draw ellipse and adjus it vertically by volumeHeight
   rect(250, BPMHeight, 101, 101);                                                // Draw rectangle and adjus it vertically by BPMHeight
 
-  for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column             
-    if (i > map(volume, minGain, maxGain, 7.5, 0.5)){                             // Creating if statement tot connect volume function to the left column
+  for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
+    if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement tot connect volume function to the left column
       fill(255 - 28 * i, 0, 0);
     } else {
       fill(0);
@@ -73,7 +72,7 @@ void drawVisualisation () {                                                     
   }
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the right LED blue column
-    if (i > map(BPM, 0, maxBPM, 7.5, 0.5)) {
+    if (i > map(BPM, 0, maxBPM, 8.0, -0.5)) {
       // Creating if statement tot connect BPM function to the right column
       fill(0, 0, 255 - 28 * i);
     } else {
