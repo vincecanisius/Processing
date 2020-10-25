@@ -3,7 +3,7 @@ int sensorPin1 = 15;                                                            
 int val = 0;                                                                      // declaring value 1
 int val1 = 0;                                                                     // declaring value 2
 byte buf[2];                                                                      // creating a buffer with 2 arrays
-int minThreshold = 2                                                              // This is required because measement errors at low potentials 
+int minThreshold = 2;                                                             // This is required because measement errors at low potentials 
 
 void setup() {
   Serial.begin(9600);                                                             // Open serial port
