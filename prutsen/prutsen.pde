@@ -6,7 +6,7 @@ import ddf.minim.ugens.*;
 Serial port;                                                                     // Data received from the serial port      
 int buffer = 0;                                                                  // Load the buffer 
 float volume = 0.0;                                                              // Creating volume var 0.0 as starting point
-float maxGain = 10;                                                              // Setting a Maximum on volume
+float maxGain = 2;                                                              // Setting a Maximum on volume
 float minGain = -100;                                                            // Setting a Minimum on volume
 int BPM = 0;                                                                     // Creating BPM var 0 as starting point
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
@@ -21,9 +21,7 @@ AudioOutput out;                                                                
 void setup() {
 
   printArray(Serial.list());                                                     // List all the available serial ports
-  rectMode(CENTER);                                                             
-  ellipseMode(CENTER);
-  size(500, 500);
+  size(200, 900);
   String arduinoPort = Serial.list()[2];                                         // Receive the buffer from arduino 
   port = new Serial(this, arduinoPort, 9600);                                    // Via port > arduinoPort with baudrate 9600
   minim = new Minim(this);                                                       // ?
@@ -63,6 +61,24 @@ void drawVisualisation () {                                                     
   float BPMHeight = map(BPM, 0, maxBPM, 450, 50);                                // Convert the BPM and map it
   ellipse(100, volumeHeight, 101, 101);                                          // Draw ellipse and adjus it vertically by volumeHeight
   rect(250, BPMHeight, 101, 101);                                                // Draw rectangle and adjus it vertically by BPMHeight
+
+  for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column             
+    if (map(i, 0, 8, maxGain, minGain) <= volume) {                               // Creating if statement tot connect volume function to the left column
+      fill(255 - 28 * i, 0, 0);
+    } else {
+      fill(0);
+    }       
+    rect(0, 0 + 100 * i, 100, 100);
+  }
+
+  for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the right LED blue column
+      if (map(i, 0, 8, maxBPM, 0) <= BPM){                                        // Creating if statement tot connect BPM function to the right column
+        fill(0, 0, 255 - 28 * i);
+    } else {
+      fill(0);
+    }       
+    rect(100, 0 + 100 * i, 100, 100);
+  }
 }
 
 void draw() {
@@ -71,43 +87,5 @@ void draw() {
   if (updateInput()) {                                                           // If there is new data available adjust the sampleSetting or visualisationSetting
     sampleSetting(volume, BPM);                                                  // Function for the sampleSetting
   }
-  drawVisualisation();                                                           // Draw the visualisation
-
-  fill(255, 0, 0);
-  rect(0, 0, 100, 100); 
-  fill(227, 0, 0);
-  rect(0, 100, 100, 100);
-  fill(199, 0, 0);
-  rect(0, 200, 100, 100);
-  fill(171, 0, 0);
-  rect(0, 300, 100, 100);
-  fill(143, 0, 0);
-  rect(0, 400, 100, 100);
-  fill(115, 0, 0);
-  rect(0, 500, 100, 100);
-  fill(87, 0, 0);
-  rect(0, 600, 100, 100);
-  fill(59, 0, 0);
-  rect(0, 700, 100, 100);
-  fill(31, 0, 0);
-  rect(0, 800, 100, 100);
-
-  fill(0, 0, 255);
-  rect(100, 0, 100, 100);
-  fill(0, 0, 277);
-  rect(100, 100, 100, 100);
-  fill(0, 0, 199);
-  rect(100, 200, 100, 100);
-  fill(0, 0, 171);
-  rect(100, 300, 100, 100);
-  fill(0, 0, 143);
-  rect(100, 400, 100, 100);
-  fill(0, 0, 115);
-  rect(100, 500, 100, 100);
-  fill(0, 0, 87);
-  rect(100, 600, 100, 100);
-  fill(0, 0, 59);
-  rect(100, 700, 100, 100);
-  fill(0, 0, 31);
-  rect(100, 800, 100, 100);
+  drawVisualisation(); // Draw the visualisation
 }
