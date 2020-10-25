@@ -64,7 +64,7 @@ void drawVisualisation () {                                                     
   rect(250, BPMHeight, 101, 101);                                                // Draw rectangle and adjus it vertically by BPMHeight
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column             
-    if (map(i, 0, 8, maxGain, minGain) <= volume) {                              // Creating if statement tot connect volume function to the left column
+    if (i > map(volume, minGain, maxGain, 7.5, 0.5)){                             // Creating if statement tot connect volume function to the left column
       fill(255 - 28 * i, 0, 0);
     } else {
       fill(0);
@@ -73,7 +73,8 @@ void drawVisualisation () {                                                     
   }
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the right LED blue column
-    if (map(i, 0, 8, maxBPM, 0) <= BPM) {                                        // Creating if statement tot connect BPM function to the right column
+    if (i > map(BPM, 0, maxBPM, 7.5, 0.5)) {
+      // Creating if statement tot connect BPM function to the right column
       fill(0, 0, 255 - 28 * i);
     } else {
       fill(0);
