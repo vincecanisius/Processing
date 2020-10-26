@@ -3,20 +3,20 @@ import ddf.minim.*;
 import ddf.minim.ugens.*;
 
 Serial port;                                                                     // Data received from the serial port      
-int buffer = 0;                                                                  // Load the buffer 
+float buffer = 0;                                                                // Load the buffer 
 float volume = 0.0;                                                              // Creating volume var 0.0 as starting point
 float maxGain = 2;                                                               // Setting a Maximum on volume
 float minGain = -100;                                                            // Setting a Minimum on volume
-int BPM = 0;                                                                     // Creating BPM var 0 as starting point
+float BPM = 0;                                                                   // Creating BPM var 0 as starting point
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
 float audioSampleBPM = 100;                                                      // Setting the standard samplerate to 100 BPM
-int x = 100;
-int y = 450;
-int z = 650;
-int w = 450;
-float r_volume = 0;
-float r_BPM = 0;
-float max_rotation_speed = 100;
+float x = 100;                                                                   // Creating float X with value 100
+float y = 450;                                                                   // Creating flpat Y with vlua 450
+float z = 650;                                                                   // Creating float Z with calue 650
+float w = 450;                                                                   // Creating float W with value 450
+float r_volume = 0;                                                              // Creating float r_volume with value 0
+float r_BPM = 0;                                                                 // Creating float r_BPM with value 0
+float max_rotation_speed = 100;                                                  // Creating gloat max_rotation_speed with value 100
 
 Minim minim;                                                                     // Using the Minim libarary          
 TickRate rateControl;                                                            // Declaring controller for BPM from Minim ugens library
@@ -31,11 +31,11 @@ void setup() {
   String arduinoPort = Serial.list()[2];                                         // Receive the buffer from arduino 
   port = new Serial(this, arduinoPort, 9600);                                    // Via port > arduinoPort with baudrate 9600
   minim = new Minim(this);                                                       // Using Minim for the following line of code
-  sample = new FilePlayer( minim.loadFileStream("The Chemical Brothers - Got To Keep On.mp3") );      // Import the choosen .mp3 file to use in the code
+  sample = new FilePlayer( minim.loadFileStream("The Chemical Brothers - Got To Keep On.mp3") );      // Import the desired .mp3 file to use in the code
   sample.loop();                                                                 // Function to start en loop the .mp3 file
-  rateControl = new TickRate(1.f);                                               // Creating BPM controller
+  rateControl = new TickRate(1.f);                                               // Create BPM controller
   rateControl.setInterpolation( true );                                          // Through the interpolation the BPM control is smoother
-  volumeControl = new Gain(0.f);                                                 // Creating volume controller
+  volumeControl = new Gain(0.f);                                                 // Create volume controller
   out = minim.getLineOut();                                                      // Create the audio output
   sample.patch(rateControl).patch(volumeControl).patch(out);                     // Combining all the aspects to create the patched sample
 }
@@ -64,23 +64,25 @@ void sampleSetting(float volume, float BPM) {                                   
 
 void drawVisualisation () {                                                      // Function declaration for the visualisationSetting
 
-  pushMatrix();
-  translate(x, y);
-  rotate(radians(r_volume));
-  fill(255);
-  rect(-75, -5, 150, 10);
-  popMatrix();
+  pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
+  translate(x, y);                                                               // Gives a new place on the screen according to X and Y
+  rotate(radians(r_volume));                                                     // Degrees in PI
+  fill(255);                                                                     // Color it white
+  rect(-75, -5, 150, 10);                                                        // Draw a rectangle and flip it around itself
+  popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
-  r_volume = r_volume + map(volume, minGain, maxGain, 0, max_rotation_speed);
+  r_volume = r_volume + map(volume, minGain, maxGain, 0, max_rotation_speed);    // ?
 
-  pushMatrix();
-  translate(z, w);
-  rotate(radians(r_BPM));
-  fill(255);
-  rect(-75, -5, 150, 10);
-  popMatrix();
+  pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
+  translate(z, w);                                                               // Gives a new place on the screen according to Z and W
+  rotate(radians(r_BPM));                                                        // Degrees in PI
+  fill(255);                                                                     // Color it white
+  rect(-75, -5, 150, 10);                                                        // Draw a rectangle and flip it around itself
+  popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
-  r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);
+  r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);                    // ?
+
+ 
 
     for (int i = 0; i < 9; i = i + 1) {                                          // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement to connect volume function to the left column
