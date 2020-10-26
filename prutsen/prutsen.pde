@@ -14,7 +14,8 @@ int x = 100;
 int y = 450;
 int z = 650;
 int w = 450;
-int r = 0;
+int r_volume = 0;
+int r_BPM = 0;
 
 Minim minim;                                                                     // Using the Minim libarary          
 TickRate rateControl;                                                            // Declaring controller for BPM from Minim ugens library
@@ -64,21 +65,21 @@ void drawVisualisation () {                                                     
 
   pushMatrix();
   translate(x, y);
-  rotate(radians(r));
+  rotate(radians(r_volume));
   fill(255);
   rect(-75, -5, 150, 10);
   popMatrix();
 
-//  r = r + int volume;
- 
+  //r_volume = r_volume + volume;
+
   pushMatrix();
   translate(z, w);
-  rotate(radians(r));
+  rotate(radians(r_BPM));
   fill(255);
   rect(-75, -5, 150, 10);
   popMatrix();
-  
-   r = r + BPM;
+
+  r_BPM = r_BPM + BPM;
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement tot connect volume function to the left column
