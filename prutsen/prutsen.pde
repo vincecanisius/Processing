@@ -10,6 +10,11 @@ float minGain = -100;                                                           
 int BPM = 0;                                                                     // Creating BPM var 0 as starting point
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
 float audioSampleBPM = 100;                                                      // Setting the standard samplerate to 100 BPM
+int x = 100;
+int y = 450;
+int z = 650;
+int w = 450;
+int r = 0;
 
 Minim minim;                                                                     // Using the Minim libarary          
 TickRate rateControl;                                                            // Declaring controller for BPM from Minim ugens library
@@ -58,20 +63,22 @@ void sampleSetting(float volume, float BPM) {                                   
 void drawVisualisation () {                                                      // Function declaration for the visualisationSetting
 
   pushMatrix();
-  radians(360);
-  //rotate(PI/3.0);
-  rectMode(CENTER);
+  translate(x, y);
+  rotate(radians(r));
   fill(255);
-  rect(100, 450, 150, 10);
+  rect(-75, -5, 150, 10);
   popMatrix();
 
+//  r = r + int volume;
+ 
   pushMatrix();
-  radians(360);
-  //rotate(PI/3.0);
-  rectMode(CENTER);
+  translate(z, w);
+  rotate(radians(r));
   fill(255);
-  rect(650, 450, 150, 10);
+  rect(-75, -5, 150, 10);
   popMatrix();
+  
+   r = r + BPM;
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement tot connect volume function to the left column
