@@ -57,18 +57,22 @@ void sampleSetting(float volume, float BPM) {                                   
 
 void drawVisualisation () {                                                      // Function declaration for the visualisationSetting
 
+  pushMatrix();
   translate(width/2, height/2);
   radians(360);
-  rotate(PI/3.0);
+  //rotate(PI/3.0);
   rectMode(CENTER);
+  fill(255);
   rect(100, 450, 100, 20);
+  popMatrix();
 
-  translate(width/2, height/2);
+  pushMatrix();
   radians(360);
-  rotate(PI/3.0);
+  //rotate(PI/3.0);
   rectMode(CENTER);
-  rect(700, 450, 100, 20);
-
+  fill(255);
+  rect(650, 450, 150, 10);
+  popMatrix();
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement tot connect volume function to the left column
