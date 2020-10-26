@@ -58,12 +58,11 @@ void sampleSetting(float volume, float BPM) {                                   
 void drawVisualisation () {                                                      // Function declaration for the visualisationSetting
 
   pushMatrix();
-  translate(width/2, height/2);
   radians(360);
   //rotate(PI/3.0);
   rectMode(CENTER);
   fill(255);
-  rect(100, 450, 100, 20);
+  rect(100, 450, 150, 10);
   popMatrix();
 
   pushMatrix();
@@ -100,6 +99,4 @@ void draw() {
     sampleSetting(volume, BPM);                                                  // Function for the sampleSetting
   }
   drawVisualisation();                                                           // Draw the visualisation
-
-  rect(100, 450, 80, 20);
 }
