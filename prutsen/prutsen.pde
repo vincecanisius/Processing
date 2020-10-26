@@ -14,8 +14,9 @@ int x = 100;
 int y = 450;
 int z = 650;
 int w = 450;
-int r_volume = 0;
-int r_BPM = 0;
+float r_volume = 0;
+float r_BPM = 0;
+float max_rotation_speed = 100;
 
 Minim minim;                                                                     // Using the Minim libarary          
 TickRate rateControl;                                                            // Declaring controller for BPM from Minim ugens library
@@ -70,7 +71,7 @@ void drawVisualisation () {                                                     
   rect(-75, -5, 150, 10);
   popMatrix();
 
-  //r_volume = r_volume + volume;
+  r_volume = r_volume + map(volume, minGain, maxGain, 0, max_rotation_speed);
 
   pushMatrix();
   translate(z, w);
@@ -79,10 +80,10 @@ void drawVisualisation () {                                                     
   rect(-75, -5, 150, 10);
   popMatrix();
 
-  r_BPM = r_BPM + BPM;
+  r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);
 
-  for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
-    if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement tot connect volume function to the left column
+    for (int i = 0; i < 9; i = i + 1) {                                          // For loop function for the left LED red column  
+    if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement to connect volume function to the left column
       fill(255 - 28 * i, 0, 0);                                                  // Adjusting brightness of colored volume rectangles
     } else {
       fill(0);
@@ -91,7 +92,7 @@ void drawVisualisation () {                                                     
   }
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the right LED blue column
-    if (i > map(BPM, 0, maxBPM, 8.0, -0.5)) {                                    // Creating if statement tot connect BPM function to the right column
+    if (i > map(BPM, 0, maxBPM, 8.0, -0.5)) {                                    // Creating if statement to connect BPM function to the right column
       fill(0, 0, 255 - 28 * i);                                                  // Adjusting brightness of colored volume rectangles
     } else {
       fill(0);
