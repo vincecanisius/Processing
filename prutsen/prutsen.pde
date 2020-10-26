@@ -20,11 +20,11 @@ AudioOutput out;                                                                
 void setup() {
 
   printArray(Serial.list());                                                     // List all the available serial ports
-  size(200, 900);
+  size(800, 900);
   String arduinoPort = Serial.list()[2];                                         // Receive the buffer from arduino 
   port = new Serial(this, arduinoPort, 9600);                                    // Via port > arduinoPort with baudrate 9600
   minim = new Minim(this);                                                       // Using Minim for the following line of code
-  sample = new FilePlayer( minim.loadFileStream("Regal - Anhedonia.mp3") );      // Import the choosen .mp3 file to use in the code
+  sample = new FilePlayer( minim.loadFileStream("The Chemical Brothers - Got To Keep On.mp3") );      // Import the choosen .mp3 file to use in the code
   sample.loop();                                                                 // Function to start en loop the .mp3 file
   rateControl = new TickRate(1.f);                                               // Creating BPM controller
   rateControl.setInterpolation( true );                                          // Through the interpolation the BPM control is smoother
@@ -57,13 +57,26 @@ void sampleSetting(float volume, float BPM) {                                   
 
 void drawVisualisation () {                                                      // Function declaration for the visualisationSetting
 
+  translate(width/2, height/2);
+  radians(360);
+  rotate(PI/3.0);
+  rectMode(CENTER);
+  rect(100, 450, 100, 20);
+
+  translate(width/2, height/2);
+  radians(360);
+  rotate(PI/3.0);
+  rectMode(CENTER);
+  rect(700, 450, 100, 20);
+
+
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement tot connect volume function to the left column
       fill(255 - 28 * i, 0, 0);                                                  // Adjusting brightness of colored volume rectangles
     } else {
       fill(0);
     }       
-    rect(0, 0 + 100 * i, 100, 100);                                              // Drawing rectangle at the defined locations
+    rect(300, 0 + 100 * i, 100, 100);                                            // Drawing rectangle at the defined locations
   }
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the right LED blue column
@@ -72,7 +85,7 @@ void drawVisualisation () {                                                     
     } else {
       fill(0);
     }       
-    rect(100, 0 + 100 * i, 100, 100);                                            // Drawing rectangle at the defined locations
+    rect(400, 0 + 100 * i, 100, 100);                                            // Drawing rectangle at the defined locations
   }
 }
 
@@ -83,4 +96,6 @@ void draw() {
     sampleSetting(volume, BPM);                                                  // Function for the sampleSetting
   }
   drawVisualisation();                                                           // Draw the visualisation
+
+  rect(100, 450, 80, 20);
 }
