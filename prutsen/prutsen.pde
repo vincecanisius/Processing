@@ -62,7 +62,7 @@ void sampleSetting(float volume, float BPM) {                                   
   volumeControl.setValue(volume);                                                // Boost the volume of the sample in decibel (can be negative)
 }
 
-void draw_rotating_bars() {
+void drawRotatingBars() {                                                        // Creating function for rotatings bars
 
   pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
   translate(x, y);                                                               // Gives a new place on the screen according to X and Y
@@ -83,7 +83,7 @@ void draw_rotating_bars() {
   r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);                    // Increment rotation with amount as function of BPM
 }
 
-void draw_center_bars() {
+void drawCenterBars() {                                                          // Creating function for center bars
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement to connect volume function to the left column
@@ -105,8 +105,8 @@ void draw_center_bars() {
 }
 
 void drawVisualisation() {                                                       // Function declaration for the visualisationSetting
-  draw_rotating_bars();
-  draw_center_bars();
+  drawRotatingBars();
+  drawCenterBars();
 }
 
 void draw() {
