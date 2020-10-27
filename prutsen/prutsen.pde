@@ -11,11 +11,11 @@ float BPM = 0;                                                                  
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
 float audioSampleBPM = 100;                                                      // Setting the standard samplerate to 100 BPM
 float x = 100;                                                                   // Creating X position of rotating volume bar 
-float y = 450;                                                                   // Creating Y rotation angle (degrees) of volume bar
+float y = 450;                                                                   // Creating Y position of rotating volume bar
 float z = 650;                                                                   // Creating X position of rotating BPM bar
-float w = 450;                                                                   // Creating Y rotation angle (degrees) of BPM bar
-float r_volume = 0;                                                              // Creating float r_volume with value 0
-float r_BPM = 0;                                                                 // Creating float r_BPM with value 0
+float w = 450;                                                                   // Creating Y  position of rotating BPM bar
+float r_volume = 0;                                                              // Creating rotation angle (degrees) of volume bar
+float r_BPM = 0;                                                                 // Creating rotation angle (degrees) of BPM bar
 float max_rotation_speed = 100;                                                  // Creating float max_rotation_speed with value 100
 
 Minim minim;                                                                     // Using the Minim libarary          
