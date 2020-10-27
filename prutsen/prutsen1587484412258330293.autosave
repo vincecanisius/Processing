@@ -10,13 +10,13 @@ float minGain = -100;                                                           
 float BPM = 0;                                                                   // Creating BPM var 0 as starting point
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
 float audioSampleBPM = 100;                                                      // Setting the standard samplerate to 100 BPM
-float x = 100;                                                                   // Creating X position of rotating volume bar 
-float y = 450;                                                                   // Creating Y rotation angle (degrees) of volume bar
-float z = 650;                                                                   // Creating X position of rotating BPM bar
-float w = 450;                                                                   // Creating Y rotation angle (degrees) of BPM bar
+float x = 100;                                                                   // Creating float X with value 100
+float y = 450;                                                                   // Creating float Y with vlua 450
+float z = 650;                                                                   // Creating float Z with calue 650
+float w = 450;                                                                   // Creating float W with value 450
 float r_volume = 0;                                                              // Creating float r_volume with value 0
 float r_BPM = 0;                                                                 // Creating float r_BPM with value 0
-float max_rotation_speed = 100;                                                  // Creating float max_rotation_speed with value 100
+float max_rotation_speed = 100;                                                  // Creating gloat max_rotation_speed with value 100
 
 Minim minim;                                                                     // Using the Minim libarary          
 TickRate rateControl;                                                            // Declaring controller for BPM from Minim ugens library
@@ -62,7 +62,7 @@ void sampleSetting(float volume, float BPM) {                                   
   volumeControl.setValue(volume);                                                // Boost the volume of the sample in decibel (can be negative)
 }
 
-void draw_rotating_bars() {
+void drawVisualisation () {                                                      // Function declaration for the visualisationSetting
 
   pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
   translate(x, y);                                                               // Gives a new place on the screen according to X and Y
@@ -81,9 +81,6 @@ void draw_rotating_bars() {
   popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
   r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);                    // Increment rotation with amount as function of BPM
-}
-
-void draw_center_bars() {
 
   for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement to connect volume function to the left column
@@ -102,11 +99,6 @@ void draw_center_bars() {
     }       
     rect(400, 0 + 100 * i, 100, 100);                                            // Drawing rectangle at the defined locations
   }
-}
-
-void drawVisualisation() {                                                       // Function declaration for the visualisationSetting
-  draw_rotating_bars();
-  draw_center_bars();
 }
 
 void draw() {
