@@ -10,13 +10,13 @@ float minGain = -100;                                                           
 float BPM = 0;                                                                   // Creating BPM var 0 as starting point
 float maxBPM = 180;                                                              // Setting a Maximun on BPM rate
 float audioSampleBPM = 100;                                                      // Setting the standard samplerate to 100 BPM
-float x = 100;                                                                   // Creating X position of rotating volume bar 
-float y = 450;                                                                   // Creating Y position of rotating volume bar
-float z = 650;                                                                   // Creating X position of rotating BPM bar
-float w = 450;                                                                   // Creating Y  position of rotating BPM bar
-float r_volume = 0;                                                              // Creating rotation angle (degrees) of volume bar
-float r_BPM = 0;                                                                 // Creating rotation angle (degrees) of BPM bar
-float max_rotation_speed = 100;                                                  // Creating float max_rotation_speed with value 100
+float xVolume = 100;                                                             // Creating X position of rotating volume bar 
+float yVolume = 450;                                                             // Creating Y position of rotating volume bar
+float xBPM = 650;                                                                // Creating X position of rotating BPM bar
+float yBPM = 450;                                                                // Creating Y  position of rotating BPM bar
+float rVolume = 0;                                                               // Creating rotation angle (degrees) of volume bar
+float rBPM = 0;                                                                  // Creating rotation angle (degrees) of BPM bar
+float maxRotationSpeed = 100;                                                    // Creating float max_rotation_speed with value 100
 
 Minim minim;                                                                     // Using the Minim libarary          
 TickRate rateControl;                                                            // Declaring controller for BPM from Minim ugens library
@@ -65,22 +65,22 @@ void sampleSetting(float volume, float BPM) {                                   
 void drawRotatingBars() {                                                        // Creating function for rotatings bars
 
   pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
-  translate(x, y);                                                               // Gives a new place on the screen according to X and Y
-  rotate(radians(r_volume));                                                     // Degrees in PI
+  translate(xVolume, yVolume);                                                   // Gives a new place on the screen according to X and Y
+  rotate(radians(rVolume));                                                      // Degrees in PI
   fill(255);                                                                     // Color it white
   rect(-75, -5, 150, 10);                                                        // Draw a rectangle and flip it around itself
   popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
-  r_volume = r_volume + map(volume, minGain, maxGain, 0, max_rotation_speed);    // Increment rotation with amount as function of volume
+  rVolume = rVolume + map(volume, minGain, maxGain, 0, maxRotationSpeed);        // Increment rotation with amount as function of volume
 
   pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
-  translate(z, w);                                                               // Gives a new place on the screen according to Z and W
-  rotate(radians(r_BPM));                                                        // Degrees in PI
+  translate(xBPM, yBPM);                                                         // Gives a new place on the screen according to Z and W
+  rotate(radians(rBPM));                                                         // Degrees in PI
   fill(255);                                                                     // Color it white
   rect(-75, -5, 150, 10);                                                        // Draw a rectangle and flip it around itself
   popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
-  r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);                    // Increment rotation with amount as function of BPM
+  rBPM = rBPM + map(BPM, 0, maxBPM, 0, maxRotationSpeed);                        // Increment rotation with amount as function of BPM
 }
 
 void drawCenterBars() {                                                          // Creating function for center bars
