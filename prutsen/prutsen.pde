@@ -31,7 +31,7 @@ void setup() {
   String arduinoPort = Serial.list()[2];                                         // Receive the buffer from arduino 
   port = new Serial(this, arduinoPort, 9600);                                    // Via port > arduinoPort with baudrate 9600
   minim = new Minim(this);                                                       // Using Minim for the following line of code
-  sample = new FilePlayer( minim.loadFileStream("The Chemical Brothers - Got To Keep On.mp3") );      // Import the desired .mp3 file to use in the code
+  sample = new FilePlayer( minim.loadFileStream("Kasso - Walkman.mp3") );        // Import the desired .mp3 file to use in the code
   sample.loop();                                                                 // Function to start en loop the .mp3 file
   rateControl = new TickRate(1.f);                                               // Create BPM controller
   rateControl.setInterpolation( true );                                          // Through the interpolation the BPM control is smoother
@@ -71,7 +71,7 @@ void drawVisualisation () {                                                     
   rect(-75, -5, 150, 10);                                                        // Draw a rectangle and flip it around itself
   popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
-  r_volume = r_volume + map(volume, minGain, maxGain, 0, max_rotation_speed);    // ?
+  r_volume = r_volume + map(volume, minGain, maxGain, 0, max_rotation_speed);    // Increment rotation with amount as function of volume
 
   pushMatrix();                                                                  // Pushes the current transformation matrix onto the matrix stack
   translate(z, w);                                                               // Gives a new place on the screen according to Z and W
@@ -80,11 +80,9 @@ void drawVisualisation () {                                                     
   rect(-75, -5, 150, 10);                                                        // Draw a rectangle and flip it around itself
   popMatrix();                                                                   // Pops the current transformation matrix off the matrix stack
 
-  r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);                    // ?
+  r_BPM = r_BPM + map(BPM, 0, maxBPM, 0, max_rotation_speed);                    // Increment rotation with amount as function of BPM
 
- 
-
-    for (int i = 0; i < 9; i = i + 1) {                                          // For loop function for the left LED red column  
+  for (int i = 0; i < 9; i = i + 1) {                                            // For loop function for the left LED red column  
     if (i > map(volume, minGain, maxGain, 8.0, -0.5)) {                          // Creating if statement to connect volume function to the left column
       fill(255 - 28 * i, 0, 0);                                                  // Adjusting brightness of colored volume rectangles
     } else {
